@@ -6,17 +6,16 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  bool isCross = true;
+  List<String> gameState;
+  String message = "";
 
-bool isCross = true;
-List<String> gameState ;
-String message = "";
+  AssetImage cross = AssetImage("images/cross.png");
+  AssetImage circle = AssetImage("images/circle.png");
+  AssetImage edit = AssetImage("images/edit.png");
 
-AssetImage cross = AssetImage("images/cross.png");
-AssetImage circle = AssetImage("images/circle.png");
-AssetImage edit = AssetImage("images/edit.png");
-
-@override
-void initState() {
+  @override
+  void initState() {
     super.initState();
     setState(() {
       this.message = "";
@@ -32,19 +31,117 @@ void initState() {
         "empty",
       ];
     });
-
   }
 
+  AssetImage getImage(String value) {
+    switch (value) {
+      case "empty":
+        return this.edit;
+      case "cross":
+        return this.cross;
+      case "circle":
+        return this.circle;
+    }
+  }
 
+  playGame(int index) {
+    if (this.gameState[index] == "empty") {
+      if (this.isCross) {
+        this.gameState[index] = "cross";
+      } else {
+        this.gameState[index] = "circle";
+      }
+      this.isCross = !this.isCross;
+      this.checkWin();
+    }
+  }
 
+  resetGame() {
+    setState(() {
+      this.message = "";
+      this.gameState = [
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+      ];
+    });
+  }
 
+  checkWin() {
+    // 0 1 2
+    // 3 4 5
+    // 6 7 8
 
+    if ((gameState[0] != "empty") &&
+        (gameState[0] == gameState[1]) &&
+        (gameState[1] == gameState[2])) {
+      setState(() {
+        this.message = "${this.gameState[0]} Wins";
+      });
+    }
+    if ((gameState[3] != "empty") &&
+        (gameState[3] == gameState[4]) &&
+        (gameState[4] == gameState[5])) {
+      setState(() {
+        this.message = "${this.gameState[3]} Wins";
+      });
+    }
+    if ((gameState[6] != "empty") &&
+        (gameState[6] == gameState[7]) &&
+        (gameState[7] == gameState[8])) {
+      setState(() {
+        this.message = "${this.gameState[6]} Wins";
+      });
+    }
+    if ((gameState[0] != "empty") &&
+        (gameState[0] == gameState[3]) &&
+        (gameState[3] == gameState[6])) {
+      setState(() {
+        this.message = "${this.gameState[0]} Wins";
+      });
+    }
+    if ((gameState[1] != "empty") &&
+        (gameState[1] == gameState[4]) &&
+        (gameState[4] == gameState[7])) {
+      setState(() {
+        this.message = "${this.gameState[1]} Wins";
+      });
+    }
+    if ((gameState[2] != "empty") &&
+        (gameState[2] == gameState[5]) &&
+        (gameState[5] == gameState[8])) {
+      setState(() {
+        this.message = "${this.gameState[2]} Wins";
+      });
+    }
+    if ((gameState[0] != "empty") &&
+        (gameState[0] == gameState[4]) &&
+        (gameState[4] == gameState[8])) {
+      setState(() {
+        this.message = "${this.gameState[0]} Wins";
+      });
+    }
+    if ((gameState[2] != "empty") &&
+        (gameState[2] == gameState[2]) &&
+        (gameState[2] == gameState[6])) {
+      setState(() {
+        this.message = "${this.gameState[2]} Wins";
+      });
+    }
 
+    if(!gameState.contains("empty")){
+      setState(() {
+        this.message = "Game draw";
+      });
+    }
 
-
-
-
-
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -69,12 +166,13 @@ void initState() {
                   mainAxisSpacing: 12.0,
                 ),
                 itemCount: 9,
-                itemBuilder: (context, i) => Container(
+                itemBuilder: (context, index) => Container(
                   child: MaterialButton(
                     onPressed: () {},
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20)),
                     color: Colors.red,
+                    child: Text("$index"),
                   ),
                 ),
               ),
@@ -85,13 +183,11 @@ void initState() {
                 "$message",
                 style: TextStyle(
                   fontSize: 20.0,
-
                 ),
               ),
             ),
             RaisedButton(
               onPressed: () {},
-              
               color: Colors.red,
               padding: EdgeInsets.symmetric(vertical: 15, horizontal: 100),
               shape: StadiumBorder(),
@@ -107,7 +203,10 @@ void initState() {
             ),
             Container(
               padding: EdgeInsets.all(20),
-              child: Text("LearnCodeOnline.in",style: TextStyle(fontSize: 18),),
+              child: Text(
+                "LearnCodeOnline.in",
+                style: TextStyle(fontSize: 18),
+              ),
             )
           ],
         ));

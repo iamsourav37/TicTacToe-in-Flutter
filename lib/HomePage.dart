@@ -54,9 +54,9 @@ class _HomePageState extends State<HomePage> {
           this.gameState[index] = "circle";
         }
         this.isCross = !this.isCross;
-        if(this.isCross){
+        if (this.isCross) {
           this.message = "CROSS turn";
-        }else{
+        } else {
           this.message = "CIRCLE turn";
         }
         this.checkWin();
@@ -66,7 +66,7 @@ class _HomePageState extends State<HomePage> {
 
   resetGame() {
     setState(() {
-      this.message = this.isCross? "CROSS turn" : "CIRCLE turn";
+      this.message = this.isCross ? "CROSS turn" : "CIRCLE turn";
       this.gameState = [
         "empty",
         "empty",
@@ -78,7 +78,7 @@ class _HomePageState extends State<HomePage> {
         "empty",
         "empty",
       ];
-        this.isDisabled = false;
+      this.isDisabled = false;
     });
   }
 
@@ -101,7 +101,6 @@ class _HomePageState extends State<HomePage> {
       setState(() {
         this.message = "${this.gameState[3]} Wins";
         this.isDisabled = true;
-
       });
     }
     if ((gameState[6] != "empty") &&
@@ -110,7 +109,6 @@ class _HomePageState extends State<HomePage> {
       setState(() {
         this.message = "${this.gameState[6]} Wins";
         this.isDisabled = true;
-
       });
     }
     if ((gameState[0] != "empty") &&
@@ -119,7 +117,6 @@ class _HomePageState extends State<HomePage> {
       setState(() {
         this.message = "${this.gameState[0]} Wins";
         this.isDisabled = true;
-
       });
     }
     if ((gameState[1] != "empty") &&
@@ -128,7 +125,6 @@ class _HomePageState extends State<HomePage> {
       setState(() {
         this.message = "${this.gameState[1]} Wins";
         this.isDisabled = true;
-
       });
     }
     if ((gameState[2] != "empty") &&
@@ -137,7 +133,6 @@ class _HomePageState extends State<HomePage> {
       setState(() {
         this.message = "${this.gameState[2]} Wins";
         this.isDisabled = true;
-
       });
     }
     if ((gameState[0] != "empty") &&
@@ -146,7 +141,6 @@ class _HomePageState extends State<HomePage> {
       setState(() {
         this.message = "${this.gameState[0]} Wins";
         this.isDisabled = true;
-
       });
     }
     if ((gameState[2] != "empty") &&
@@ -155,7 +149,6 @@ class _HomePageState extends State<HomePage> {
       setState(() {
         this.message = "${this.gameState[2]} Wins";
         this.isDisabled = true;
-
       });
     }
 
@@ -172,7 +165,8 @@ class _HomePageState extends State<HomePage> {
         appBar: AppBar(
           title: Text(
             "Tic-Tac-Toe game by Sourav",
-            style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
+            style: TextStyle(
+                color: Colors.white, fontWeight: FontWeight.w600, fontSize: 25),
           ),
         ),
         body: Column(
@@ -191,7 +185,11 @@ class _HomePageState extends State<HomePage> {
                 itemCount: 9,
                 itemBuilder: (context, index) => Container(
                   child: MaterialButton(
-                    onPressed: isDisabled?null: (){this.playGame(index);}  ,
+                    onPressed: isDisabled
+                        ? null
+                        : () {
+                            this.playGame(index);
+                          },
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12)),
                     color: Colors.white,
@@ -227,12 +225,16 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
             Container(
-              padding: EdgeInsets.all(20),
+              padding: EdgeInsets.only(top: 20, bottom: 10),
               child: Text(
-                "LearnCodeOnline.in",
-                style: TextStyle(fontSize: 18),
+                "A project by Sourav Ganguly",
+                style: TextStyle(
+                  fontSize: 22,
+                  color: Colors.blue,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
-            )
+            ),
           ],
         ));
   }
